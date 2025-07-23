@@ -8,4 +8,5 @@ Gemfile.lock
 .ruby-gemset
 .bundle
 .idea
-webapp/
+.env
+webapp/.env
