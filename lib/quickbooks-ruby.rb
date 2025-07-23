@@ -76,6 +76,7 @@ require 'quickbooks/model/physical_address'
 require 'quickbooks/model/invoice_line_item'
 require 'quickbooks/model/invoice_group_line_detail'
 require 'quickbooks/model/company_info'
+require 'quickbooks/model/company_currency'
 require 'quickbooks/model/customer'
 require 'quickbooks/model/delivery_info'
 require 'quickbooks/model/sales_receipt'
@@ -137,6 +138,7 @@ require 'quickbooks/service/access_token'
 require 'quickbooks/service/class'
 require 'quickbooks/service/attachable'
 require 'quickbooks/service/company_info'
+require 'quickbooks/service/company_currency'
 require 'quickbooks/service/customer'
 require 'quickbooks/service/department'
 require 'quickbooks/service/invoice'
@@ -227,17 +229,18 @@ module Quickbooks
     end
   end # << self
 
-  class InvalidModelException < StandardError; end
-  class AuthorizationFailure < StandardError; end
-  class Forbidden < StandardError; end
-  class NotFound < StandardError; end
-  class RequestTooLarge < StandardError; end
+  class Error < StandardError; end
+  class InvalidModelException < Error; end
+  class AuthorizationFailure < Error; end
+  class Forbidden < Error; end
+  class NotFound < Error; end
+  class RequestTooLarge < Error; end
   class ThrottleExceeded < Forbidden; end
-  class TooManyRequests < StandardError; end
-  class ServiceUnavailable < StandardError; end
-  class MissingRealmError < StandardError; end
+  class TooManyRequests < Error; end
+  class ServiceUnavailable < Error; end
+  class MissingRealmError < Error; end
 
-  class IntuitRequestException < StandardError
+  class IntuitRequestException < Error
     attr_accessor :message, :code, :detail, :type, :request_xml, :request_json
 
     def initialize(msg)

@@ -1,3 +1,8 @@
+# Migrate to OAuth 2.0
+
+https://developer.intuit.com/hub/blog/2018/12/20/oauth-1-0-deprecation-migrate-oauth-2-0-december-17-2019
+
+
 # Quickbooks-Ruby
 
 [![Join the chat at https://gitter.im/ruckus/quickbooks-ruby](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/ruckus/quickbooks-ruby?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
@@ -714,7 +719,7 @@ service = Quickbooks::Service::ChangeDataCapture.new
 ...
 # define the list of entities to query
 entities = ["Invoice", "Bill", "Payment"] #etc
-changed = service.since(entities, Time.now.utc - 5 days)
+changed = service.since(entities, Time.now.utc - 5.days)
 ...
 # parse the XML to a list of Quickbooks::Models
 changed_as_hash = changed.all_types
@@ -732,25 +737,25 @@ It is possible to request changes up to 30 days ago.
 ```ruby
 service = Quickbooks::Service::InvoiceChange.new
 ...
-changed = service.since(Time.now.utc - 5 days)
+changed = service.since(Time.now.utc - 5.days)
 ```
 
 ```ruby
 customer_service = Quickbooks::Service::CustomerChange.new
 ...
-customer_changed = customer_service.since(Time.now.utc - 5 days)
+customer_changed = customer_service.since(Time.now.utc - 5.days)
 ```
 
 ```ruby
 vendor_service = Quickbooks::Service::VendorChange.new
 ...
-vendor_changed = vendor_service.since(Time.now.utc - 5 days)
+vendor_changed = vendor_service.since(Time.now.utc - 5.days)
 ```
 
 ```ruby
 item_service = Quickbooks::Service::ItemChange.new
 ...
-item_changed = item_service.since(Time.now.utc - 5 days)
+item_changed = item_service.since(Time.now.utc - 5.days)
 ```
 
 

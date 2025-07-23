@@ -300,13 +300,19 @@ module Quickbooks
 
       def add_query_string_to_url(url, params)
         if params.is_a?(Hash) && !params.empty?
-          url + "?" + params.collect { |k| "#{k.first}=#{k.last}" }.join("&")
+          keyvalues = params.collect { |k| "#{k.first}=#{k.last}" }.join("&")
+          delim = url.index("?") != nil ? "&" : "?"
+          url + delim + keyvalues
         else
           url
         end
       end
 
       def check_response(response, options = {})
+        log "------ RESPONSE_HEADERS -----"
+        if log?
+          response.each_header {|h| log "#{h}: #{response[h]}"}
+        end
         log "------ QUICKBOOKS-RUBY RESPONSE ------"
         log "RESPONSE CODE = #{response.code}"
         if response.respond_to?(:headers)
@@ -341,7 +347,7 @@ module Quickbooks
         when 429
           message = parse_intuit_error[:message]
           raise Quickbooks::TooManyRequests, message
-        when 503, 504
+        when 502, 503, 504
           raise Quickbooks::ServiceUnavailable
         else
           raise "HTTP Error Code: #{status}, Msg: #{response.plain_body}"
